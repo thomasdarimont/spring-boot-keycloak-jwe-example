@@ -146,7 +146,7 @@ eyJhbGciOiJSU0EtT0FFUCIsImVuYyI6IkExMjhHQ00iLCJjdHkiOiJKV1QiLCJraWQiOiJqd2VjbGll
 The outer JWE uses asymmetric encryption and contains a signed JWT (JWS) as encrypted payload, denoted by the `cty: JWT` header entry.
     
 
-This is the header of the enclosing JWE:
+This is the JOSE-header of the enclosing JWE. The `kid` refers to the keypair of the Spring Boot Service that was used to encrypt the JWE token.
 ```
 {
   "alg": "RSA-OAEP",
@@ -158,7 +158,7 @@ This is the header of the enclosing JWE:
 
 #### Nested JWS
 
-The nested signed JWT (JWS) is signed by  
+The nested signed JWT (JWS) is signed by Keycloak with private key of the active realm key.
 
 The the nested JWS:
 ```
@@ -166,6 +166,9 @@ eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQRDBwRWd4LUVRT09IYi1iVXZyb3F4
 ```
 
 #### Nested JWS header decoded
+
+This is the JOSE-Header of the nested JWS.   
+The `kid` references the id of the Keycloak realm key pair with the public key to verify the signature of the JWS token. 
 ```
 {
   "alg": "RS256",
