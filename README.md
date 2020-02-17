@@ -127,6 +127,10 @@ curl \
   "$KC_ISSUER/protocol/openid-connect/token" \
 )
 echo $KC_RESPONSE | jq -C .
+
+KC_ID_TOKEN=$(echo $KC_RESPONSE | jq -r .id_token)
+KC_ACCESS_TOKEN=$(echo $KC_RESPONSE | jq -r .access_token)
+
 ```
 
 ## Use encrypted Access-Token to access the /api/claims Endpoint
